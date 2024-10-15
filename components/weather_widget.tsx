@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CloudIcon, MapPinIcon, ThermometerIcon } from "lucide-react";
 
-
 interface WeatherData {
   temperature: number;
   description: string;
@@ -19,7 +18,6 @@ export default function Weatherwidget() {
   const [error, setError] = useState<string | null>(null); 
   const [isLoading, setIsLoading] = useState<boolean>(false); 
 
-  
   const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -33,7 +31,6 @@ export default function Weatherwidget() {
     setError(null);
 
     try {
-      
       const response = await fetch(
         `https://api.weatherapi.com/v1/current.json?key=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&q=${trimmedLocation}`
       );
@@ -96,13 +93,12 @@ export default function Weatherwidget() {
     }
   }
 
-
-
-  function getLocationMessage (location:string):string{
+  function getLocationMessage(location: string): string {
     const currentHour = new Date().getHours();
-    const isNight = currentHour >= 18 || currentHour <6;
-    return `${location} ${isNight? "at Night" : "During the Day"}`;
+    const isNight = currentHour >= 18 || currentHour < 6;
+    return `${location} ${isNight ? "at Night" : "During the Day"}`;
   }
+
   return (
     <div
       className="flex justify-center items-center h-screen"
@@ -141,10 +137,8 @@ export default function Weatherwidget() {
             </Button>
           </form>
 
-          {/* Display error if exists */}
           {error !== null && <div className="mt-4 text-red-400">{error}</div>}
 
-          {/* Display weather information if available */}
           {weather && (
             <div className="mt-4 grid gap-4 text-left text-gray-100 drop-shadow-md">
               <div className="flex items-center gap-2">
@@ -159,7 +153,7 @@ export default function Weatherwidget() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPinIcon className="w-6 h-6 text-green-300" />
-                <span className="font-medium">{weather.location}</span>
+                <span className="font-medium">{getLocationMessage(weather.location)}</span> 
               </div>
             </div>
           )}
