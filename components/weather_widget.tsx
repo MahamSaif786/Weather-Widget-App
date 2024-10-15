@@ -137,8 +137,10 @@ export default function Weatherwidget() {
             </Button>
           </form>
 
+          {/* Display error if exists */}
           {error !== null && <div className="mt-4 text-red-400">{error}</div>}
 
+          {/* Display weather information if available */}
           {weather && (
             <div className="mt-4 grid gap-4 text-left text-gray-100 drop-shadow-md">
               <div className="flex items-center gap-2">
